@@ -36,7 +36,7 @@ async function createBrowserSession(browser_args, browser_logger) {
   chromium.setHeadlessMode = args.headless;
 
   const browser = await puppeteer.launch({
-    executablePath: process.env.IS_OFFLINE ? undefined : await chromium.executablePath,
+    executablePath: process.env.IS_OFFLINE ? undefined : await chromium.executablePath(),
     headless: args.headless,
     defaultViewport: {
       width: WindowSize.width,
