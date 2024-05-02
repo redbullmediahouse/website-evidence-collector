@@ -103,6 +103,9 @@ function reporter(args) {
             (process.env.CHROMIUM_EXECUTABLE_PATH || 'chrome') : await chromium.executablePath(),
         // https://developer.chrome.com/articles/new-headless/.
         headless: args.headless ? 'new' : false,
+        args: [
+          '--no-sandbox'
+        ]
       });
       const pages = await browser.pages();
       await pages[0].goto("file://" + path.resolve(path.join(c.args.output, htmlfilename)), {waitUntil: 'networkidle0'});
@@ -127,7 +130,7 @@ function reporter(args) {
       await browser.close();
     }
   };
-  
+
   c.generateOfficeDoc = async function (
     data,
     filename = "inspection.docx",
@@ -170,7 +173,7 @@ function reporter(args) {
           console.error("To generate .odt, you must have pandoc installed and specify --use-pandoc.");
           process.exit(1);
         }
-        
+
         // console.warn("Using NPM html-to-docx to generate", filename);
         const documentOptions = {
           // decodeUnicode: true,
