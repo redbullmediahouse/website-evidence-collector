@@ -51,7 +51,11 @@ async function createBrowserSession(browser_args, browser_logger) {
     args: [
       `--user-agent=${UserAgent}`,
       `--window-size=${WindowSize.width},${WindowSize.height}`,
-      '--no-sandbox'
+      '--no-sandbox',
+      '--disable-setuid-sandbox',
+      '--disable-dev-shm-usage',
+      '--single-process',
+      '--no-zygote'
     ].concat(args.browserOptions, args["--"] || []),
   });
 

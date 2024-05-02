@@ -104,7 +104,11 @@ function reporter(args) {
         // https://developer.chrome.com/articles/new-headless/.
         headless: args.headless ? 'new' : false,
         args: [
-          '--no-sandbox'
+          '--no-sandbox',
+          '--disable-setuid-sandbox',
+          '--disable-dev-shm-usage',
+          '--single-process',
+          '--no-zygote'
         ]
       });
       const pages = await browser.pages();
