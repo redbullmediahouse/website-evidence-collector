@@ -1,4 +1,5 @@
-const puppeteer = require("puppeteer");
+const chromium = require('@sparticuz/chromium');
+const puppeteer = require("puppeteer-core");
 const PuppeteerHar = require("puppeteer-har");
 const path = require("path");
 const url = require("url");
@@ -35,6 +36,8 @@ async function createBrowserSession(browser_args, browser_logger) {
 
   const browser = await puppeteer.launch({
     // https://developer.chrome.com/articles/new-headless/.
+    executablePath: process.env.IS_OFFLINE ?
+        (process.env.CHROMIUM_EXECUTABLE_PATH || 'chrome') : await chromium.executablePath(),
     headless: args.headless ? 'new' : false,
     defaultViewport: {
       width: WindowSize.width,

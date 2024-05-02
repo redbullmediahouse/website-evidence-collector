@@ -11,6 +11,7 @@
     "node": ">=16.0"
   },
   "dependencies": {
+    "@sparticuz/chromium": "^116.0.0",
     "@cliqz/adblocker-puppeteer": "^1.25.2",
     "content-security-policy-parser": "^0.6.0",
     "fs-extra": "^11.1.0",
@@ -24,7 +25,7 @@
     "lodash": "^4.17.21",
     "marked-smartypants": "^1.0.2",
     "pug": "^3.0.2",
-    "puppeteer": "^21.1.1",
+    "puppeteer-core": "^21.1.1",
     "puppeteer-har": "^1.1.2",
     "stacktrace-js": "^2.0.2",
     "tmp": "^0.2.1",
@@ -42,7 +43,7 @@
     }
   },
   "scripts": {
-    "start": "node ./website-evidence-collector.js https://www.example.com --overwrite --html --json --yaml --screenshots",
+    "start": "node ./bin/website-evidence-collector.js https://www.example.com --overwrite --html --json --yaml --screenshots",
     "test": "jest --detectOpenHandles"
   },
   "bin": {

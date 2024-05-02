@@ -6,7 +6,8 @@ const path = require("path");
 const pug = require("pug");
 const HTMLtoDOCX = require("html-to-docx");
 const { spawnSync } = require('node:child_process');
-const puppeteer = require("puppeteer");
+const chromium = require('@sparticuz/chromium');
+const puppeteer = require("puppeteer-core");
 
 const marked = require('marked');
 // it is surprising that https://github.com/jstransformers/jstransformer-marked picks up this object (undocumented API)
@@ -98,8 +99,10 @@ function reporter(args) {
   c.convertHtmlToPdf = async function (htmlfilename = "inspection.html", pdffilename = "inspection.pdf") {
     if (c.args.pdf && c.args.output) {
       const browser = await puppeteer.launch({
+        executablePath: process.env.IS_OFFLINE ?
+            (process.env.CHROMIUM_EXECUTABLE_PATH || 'chrome') : await chromium.executablePath(),
         // https://developer.chrome.com/articles/new-headless/.
-        headless: 'new',
+        headless: args.headless ? 'new' : false,
       });
       const pages = await browser.pages();
       await pages[0].goto("file://" + path.resolve(path.join(c.args.output, htmlfilename)), {waitUntil: 'networkidle0'});
