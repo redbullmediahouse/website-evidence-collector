@@ -51,11 +51,22 @@ async function createBrowserSession(browser_args, browser_logger) {
     args: [
       `--user-agent=${UserAgent}`,
       `--window-size=${WindowSize.width},${WindowSize.height}`,
-      '--no-sandbox',
-      '--disable-setuid-sandbox',
-      '--disable-dev-shm-usage',
-      '--single-process',
-      '--no-zygote'
+
+      "--disable-domain-reliability",
+      "--disable-print-preview",
+      "--disable-speech-api",
+      "--disk-cache-size=33554432",
+      "--mute-audio",
+      "--no-default-browser-check",
+      "--no-pings",
+      "--single-process",
+
+      "--allow-running-insecure-content",
+      "--disable-setuid-sandbox",
+      "--disable-site-isolation-trials",
+      "--disable-web-security",
+      "--no-sandbox",
+      "--no-zygote"
     ].concat(args.browserOptions, args["--"] || []),
   });
 
